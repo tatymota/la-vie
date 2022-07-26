@@ -27,8 +27,25 @@ const {Pacientes} = require ("../models/pacientes")
             },
         });
 
-        res.json("Produto deletado");
+        res.json("Paciente deletado");
     },
+    async atualizarPaciente(req, res){
+        const { id } = req.params;
+        const { nome, email, idade} = req.body;
+        const pacienteAtualizado = await Pacientes.update(
+            { 
+            nome,
+            email,
+          idade
+        },
+        {
+            where:{
+            id,
+        },
+    }
+     );
+     res.json("Paciente atualizado com Sucesso")
+    }
 };
 
 module.exports = pacienteController;
