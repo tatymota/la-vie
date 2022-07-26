@@ -1,5 +1,6 @@
 const {Atendimento} = require ("../models")
 const atendimentoController = {
+
     listarAtendimentos: async (req, res) => {
         const listarAtendimentos = await Atendimento.findAll();
 
@@ -23,6 +24,7 @@ async cadastrarAtendimentos(req, res) {
             id,
         },
     });
+
     res.json ("Atendimento deletado com sucesso!");
  },
 async atualizarAtendimentos (req, res){
