@@ -1,7 +1,9 @@
-const {Pacientes} = require ("../models/index")
-const pacienteController = {
-    listarPaciente: (req, res) => {
-        res.json([{ nome: "Paciente 1" }, { nome: "Paciente 2"}]);
+const {Pacientes} = require ("../models")
+ const pacienteController = {
+    listarPaciente: async (req, res) => {
+        const listarPaciente = await Pacientes.findAll();
+
+        res.json(listarPaciente);
     },
 
     async cadastrarPaciente(req, res) {
@@ -14,6 +16,18 @@ const pacienteController = {
         })
 
         res.json(novoPaciente);
+    },
+
+    async deletarPaciente(req, res) {
+        const { id } = req.params;
+
+        await Pacientes.destroy({
+            where:{
+                id,
+            },
+        });
+
+        res.json("Produto deletado");
     },
 };
 
