@@ -21,11 +21,11 @@ async cadastrarPsicologos(req, res) {
 },
  async deletarPsicologos(req, res){
     const { id } = req.params;
-    await Psicologos.destroy({
+    await Psicologos.destroy ({
         where:{
-            id
+            id,
         },
     });
-    res.json ("Psicologo deletado com sucesso!")
+    res.json ("Psicologo deletado com sucesso!");
  }}
 module.exports = psicologoController;

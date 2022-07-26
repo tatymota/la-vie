@@ -8,6 +8,6 @@ routes.get("/paciente/lista", pacienteController.listarPaciente);
 routes.post("/paciente/criar", pacienteController.cadastrarPaciente);
 routes.get("/psicologos", psicologoController.listarPsicologos);
 routes.post("/psicologos", psicologoController.cadastrarPsicologos);
-routes.delete("/psicologos", psicologoController.deletarPsicologos);
+routes.delete("/psicologos/:id", psicologoController.deletarPsicologos);
 
 module.exports = routes;
