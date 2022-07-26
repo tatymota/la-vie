@@ -44,7 +44,7 @@ async atualizarPsicologos(req, res){
     },
 }
  );
- res.json("Psicologo deletado com Sucesso")
+ res.json("Psicologo atualizado com Sucesso")
 }
 }
 

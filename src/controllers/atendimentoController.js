@@ -1,42 +1,39 @@
 const {Atendimento} = require ("../models")
 const atendimentoController = {
-    listarPsicologos: async (req, res) => {
-        const listarPsicologos = await Psicologos.findAll();
 
-        res.json(listarPsicologos)
+    listarAtendimentos: async (req, res) => {
+        const listarAtendimentos = await Atendimento.findAll();
+
+        res.json(listarAtendimentos)
     },
 
 
-async cadastrarPsicologos(req, res) {
-    const { nome, email, senha, apresentacao } = req.body
+async cadastrarAtendimentos(req, res) {
+    const { data, observacao } = req.body
     
-    const novoPsicologo = await Psicologos.create({
-        nome, 
-        email, 
-        senha,
-        apresentacao
+    const novoAtendimento = await Atendimento.create({
+      data, observacao
     })
 
-    res.json(novoPsicologo);
+    res.json(novoAtendimento);
 },
- async deletarPsicologos(req, res){
+ async deletarAtendimentos(req, res){
     const { id } = req.params;
-    await Psicologos.destroy ({
+    await Atendimento.destroy ({
         where:{
             id,
         },
     });
-    res.json ("Psicologo deletado com sucesso!");
+
+    res.json ("Atendimento deletado com sucesso!");
  },
-async atualizarPsicologos(req, res){
+async atualizarAtendimentos (req, res){
     const { id } = req.params;
-    const { nome, email, senha, apresentacao } = req.body;
-    const psicologoAtualizado = await Psicologos.update(
+    const { data, observacao } = req.body;
+    const atendimentoAtualizado = await Atendimento.update(
         { 
-        nome,
-        email,
-        senha,
-        apresentacao,
+       data,
+       observacao
     },
     {
         where:{
@@ -44,7 +41,7 @@ async atualizarPsicologos(req, res){
     },
 }
  );
- res.json("Psicologo deletado com Sucesso")
+ res.json("Atendimento atualizado com Sucesso")
 }
 }
 
