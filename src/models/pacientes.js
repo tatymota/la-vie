@@ -27,5 +27,5 @@ const Pacientes = db.define(
     },
     { tableName: "pacientes" }
   );
-  
+  console.log("tá ok")
   module.exports = Pacientes;
