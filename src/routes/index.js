@@ -9,5 +9,5 @@ routes.post("/paciente/criar", pacienteController.cadastrarPaciente);
 routes.get("/psicologos", psicologoController.listarPsicologos);
 routes.post("/psicologos", psicologoController.cadastrarPsicologos);
 routes.delete("/psicologos/:id", psicologoController.deletarPsicologos);
-
+routes.put("/psicologos/:id", psicologoController.atualizarPsicologos);
 module.exports = routes;

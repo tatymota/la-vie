@@ -27,5 +27,25 @@ async cadastrarPsicologos(req, res) {
         },
     });
     res.json ("Psicologo deletado com sucesso!");
- }}
+ },
+async atualizarPsicologos(req, res){
+    const { id } = req.params;
+    const { nome, email, senha, apresentacao } = req.body;
+    const psicologoAtualizado = await Psicologos.update(
+        { 
+        nome,
+        email,
+        senha,
+        apresentacao,
+    },
+    {
+        where:{
+        id,
+    },
+}
+ );
+ res.json("Psicologo deletado com Sucesso")
+}
+}
+
 module.exports = psicologoController;
