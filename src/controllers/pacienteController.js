@@ -1,9 +1,19 @@
 const {Pacientes} = require ("../models")
  const pacienteController = {
-    listarPaciente: async (req, res) => {
+    async listarPaciente (req, res) {
         const listarPaciente = await Pacientes.findAll();
 
         res.json(listarPaciente);
+    },
+
+    async listarPacienteId (req, res) {
+        const { id } = req.params;
+        const paciente = await Pacientes.findByPk(id);
+        if (paciente === null) {
+            res.json("Id não encontrado!");
+        } else {
+           res.json(paciente);
+        }
     },
 
     async cadastrarPaciente(req, res) {
@@ -36,7 +46,7 @@ const {Pacientes} = require ("../models")
             { 
             nome,
             email,
-          idade
+            idade
         },
         {
             where:{

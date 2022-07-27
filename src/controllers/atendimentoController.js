@@ -7,8 +7,17 @@ const atendimentoController = {
         res.json(listarAtendimentos)
     },
 
+    async listarAtendimentoId (req, res) {
+        const { id } = req.params;
+        const atendimento = await Atendimento.findByPk(id);
+        if (atendimento === null) {
+            res.json("Id não encontrado!");
+        } else {
+           res.json(atendimento);
+        }
+    },
 
-async cadastrarAtendimentos(req, res) {
+    async cadastrarAtendimentos(req, res) {
     const { pacientes_id,data_atendimento, observacao, psicologos_id} = req.body
     
     const novoAtendimento = await Atendimento.create({
