@@ -9,10 +9,13 @@ const atendimentoController = {
 
 
 async cadastrarAtendimentos(req, res) {
-    const { data, observacao } = req.body
+    const { pacientes_id,data_atendimento, observacao, psicologos_id} = req.body
     
     const novoAtendimento = await Atendimento.create({
-      data, observacao
+        pacientes_id,
+        data_atendimento,
+        observacao,
+        psicologos_id
     })
 
     res.json(novoAtendimento);
@@ -29,11 +32,14 @@ async cadastrarAtendimentos(req, res) {
  },
 async atualizarAtendimentos (req, res){
     const { id } = req.params;
-    const { data, observacao } = req.body;
+    const { pacientes_id,data_atendimento, observacao, psicologos_id } = req.body;
     const atendimentoAtualizado = await Atendimento.update(
         { 
-       data,
-       observacao
+            pacientes_id,
+            data_atendimento,
+            observacao,
+            psicologos_id
+
     },
     {
         where:{
