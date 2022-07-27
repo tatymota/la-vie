@@ -17,7 +17,7 @@ const atendimentoController = {
         }
     },
 
-async cadastrarAtendimentos(req, res) {
+    async cadastrarAtendimentos(req, res) {
     const { pacientes_id,data_atendimento, observacao, psicologos_id} = req.body
     
     const novoAtendimento = await Atendimento.create({

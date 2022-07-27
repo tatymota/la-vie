@@ -46,7 +46,7 @@ const {Pacientes} = require ("../models")
             { 
             nome,
             email,
-          idade
+            idade
         },
         {
             where:{

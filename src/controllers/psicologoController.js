@@ -8,7 +8,6 @@ const psicologoController = {
 
         res.json(listarPsicologos)
     },
-
     async listarPsicologosId (req, res) {
         const { id } = req.params;
         const psicologo = await db.query("SELECT id, nome, email, apresentacao, updatedAt, createdAt FROM `psicologos` WHERE id = ?", 
@@ -23,6 +22,7 @@ const psicologoController = {
         }
     },
 
+    
 async cadastrarPsicologos(req, res) {
     const { nome, email, senha, apresentacao } = req.body
 
