@@ -9,9 +9,11 @@ Atendimento.belongsTo(Psicologos,{
 Atendimento.belongsTo(Pacientes,{
     foreignKey: "pacientes_id"
 });
-Psicologos.hasMany(Atendimento,{
+
+Psicologos.hasMany(Pacientes,{
     foreignKey:"psicologos_id"
 });
+
 module.exports = {
     Atendimento, 
     Pacientes,
