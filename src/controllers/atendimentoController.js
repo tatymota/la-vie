@@ -1,64 +1,90 @@
-const {Atendimento} = require ("../models")
+const { Atendimento } = require("../models")
 const atendimentoController = {
 
     listarAtendimentos: async (req, res) => {
-        const listarAtendimentos = await Atendimento.findAll();
-
-        res.json(listarAtendimentos)
+        try {
+            const listarAtendimentos = await Atendimento.findAll();
+            res.status(200).json(listarAtendimentos);
+        } catch (error) {
+            res.status(400).json({ error });
+        }
     },
 
-    async listarAtendimentoId (req, res) {
+    async listarAtendimentoId(req, res) {
         const { id } = req.params;
         const atendimento = await Atendimento.findByPk(id);
         if (atendimento === null) {
-            res.json("Id não encontrado!");
+            res.status(404).json("Id não encontrado!");
         } else {
-           res.json(atendimento);
+            res.status(200).json(atendimento);
         }
     },
 
     async cadastrarAtendimentos(req, res) {
-    const { pacientes_id,data_atendimento, observacao, psicologos_id} = req.body
-    
-    const novoAtendimento = await Atendimento.create({
-        pacientes_id,
-        data_atendimento,
-        observacao,
-        psicologos_id
-    })
+        const { pacientes_id, data_atendimento, observacao, psicologos_id } = req.body
 
-    res.json(novoAtendimento);
-},
- async deletarAtendimentos(req, res){
-    const { id } = req.params;
-    await Atendimento.destroy ({
-        where:{
-            id,
-        },
-    });
+        if (!pacientes_id || !data_atendimento || !observacao || !psicologos_id) {
 
-    res.json ("Atendimento deletado com sucesso!");
- },
-async atualizarAtendimentos (req, res){
-    const { id } = req.params;
-    const { pacientes_id,data_atendimento, observacao, psicologos_id } = req.body;
-    const atendimentoAtualizado = await Atendimento.update(
-        { 
-            pacientes_id,
-            data_atendimento,
-            observacao,
-            psicologos_id
+            return res.status(400).json("Erro na requisição");
+
+        } else {
+            const novoAtendimento = await Atendimento.create({
+                pacientes_id,
+                data_atendimento,
+                observacao,
+                psicologos_id
+            });
+
+            res.status(201).json(novoAtendimento);
+        }
+    },
+
+    async deletarAtendimentos(req, res) {
+        const { id } = req.params;
+        const atendimento = await Atendimentos.findByPk(id);
+
+        if (atendimento === null) {
+
+            return res.status(400).json("Erro");
+
+        } else {
+            await Atendimentos.destroy({
+                where: {
+                    id,
+                },
+            }
+            );
+        };
+
+        res.status(200).json("Atendimento deletado com sucesso!");
 
     },
-    {
-        where:{
-        id,
+
+    async atualizarAtendimentos(req, res) {
+        const { id } = req.params;
+        const { pacientes_id, data_atendimento, observacao, psicologos_id } = req.body;
+
+        if (!pacientes_id || !data_atendimento || !observacao || !psicologos_id) {
+
+            return res.status(400).json({ error: "Os parâmetros não foram enviados da forma correta" })
+        } else {
+        const atendimentoAtualizado = await Atendimento.update(
+            {
+                pacientes_id,
+                data_atendimento,
+                observacao,
+                psicologos_id
+            },
+            {
+                where: {
+                    id,
+                },
+            }
+        )};
+
+        res.status(204).json("Atendimento atualizado com Sucesso");
     },
-}
- );
- res.json("Atendimento atualizado com Sucesso")
-}
-}
+};
 
 
 module.exports = atendimentoController;
