@@ -13,66 +13,77 @@ const pacienteController = {
         const { id } = req.params;
         const paciente = await Pacientes.findByPk(id);
         if (paciente === null) {
-            res.json("Id não encontrado!");
+            res.status(404).json("Id não encontrado!");
         } else {
-            res.json(paciente);
+            res.status(200).json(paciente);
         }
     },
 
     async cadastrarPaciente(req, res) {
-        try {
-            const { nome, email, idade } = req.body
+        const { nome, email, idade } = req.body
+
+        if (!nome || !email || !idade) {
+
+            return res.status(400).json("Erro na requisição");
+        } else {
             const novoPaciente = await Pacientes.create({
                 nome,
                 email,
                 idade,
             });
 
-            if (!cadastrarPaciente) {
-                res.status(400).json("Erro na requisição");
-            } else {
-                res.status(201).json(novoPaciente);
-            }
-        } catch (error) {
-            res.status(400).json({ error });
+            res.status(201).json(novoPaciente);
         }
     },
 
     async deletarPaciente(req, res) {
         const { id } = req.params;
+        const paciente = await Pacientes.findByPk(id);
 
-        await Pacientes.destroy({
-            where: {
-                id,
-            },
-        });
+        if (paciente === null) {
 
-        res.status(200).json("Paciente deletado com sucesso!");
+            return res.status(400).json("Erro");
+
+        } else {
+            await Pacientes.destroy(
+                {
+                    where: {
+                        id,
+                    },
+                }
+            );
+        };
+
+        res.status(200).json("Paciente deletado com Sucesso");
     },
+
 
     async atualizarPaciente(req, res) {
         const { id } = req.params;
         const { nome, email, idade } = req.body;
-        const pacienteAtualizado = await Pacientes.update(
-            {
-                nome,
-                email,
-                idade
-            },
-            {
-                where: {
-                    id,
-                },
-            }
-        );
 
         if (!nome || !email || !idade) {
-            return res.status(400).json({ error: "Os parâmetros não foram enviados da forma correta" })
-        }
 
-        //preciso de ajuda, esse está dando erro :(
-        res.status(204).json(atualizarPaciente);
+            return res.status(400).json("Erro");
+
+        } else {
+            const pacienteAtualizado = await Pacientes.update(
+                {
+                    nome,
+                    email,
+                    idade
+                },
+                {
+                    where: {
+                        id,
+                    },
+                }
+            );
+        };
+
+        res.status(200).json("Paciente atualizado com Sucesso");
     },
+
 };
 
 module.exports = pacienteController;
