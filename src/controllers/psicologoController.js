@@ -4,9 +4,13 @@ const db = require("../database");
 const bcrypt = require("bcryptjs");
 const psicologoController = {
     listarPsicologos: async (req, res) => {
-        const listarPsicologos = await Psicologos.findAll();
+        try {
+            const listarPsicologos = await Psicologos.findAll();
 
-        res.status(200).json(listarPsicologos);
+            res.status(200).json(listarPsicologos);
+        } catch (error) {
+            res.status(400).json({ error });
+        }
     },
 
     async listarPsicologosId(req, res) {
@@ -17,32 +21,46 @@ const psicologoController = {
                 type: QueryTypes.SELECT
             });
         if (psicologo === null) {
-            res.json("Id não encontrado!");
+            res.status(404).json("Id não encontrado!");
         } else {
-            res.json(psicologo);
+            res.status(200).json(psicologo);
         }
     },
 
     async cadastrarPsicologos(req, res) {
         const { nome, email, senha, apresentacao } = req.body
 
-        const novoPsicologo = await Psicologos.create({
-            nome,
-            email,
-            senha,
-            apresentacao
-        })
+        const newSenha = bcrypt.hashSync(senha, 10);
 
-        res.status(201).json(novoPsicologo);
+        if (!nome || !email || !senha || !apresentacao) {
+
+            return res.status(400).json("Erro na requisição");
+        } else {
+            const novoPsicologo = await Psicologos.create({
+                nome,
+                email,
+                senha: newSenha,
+                apresentacao
+            });
+
+            res.status(201).json(novoPsicologo);
+        }
     },
 
     async deletarPsicologos(req, res) {
         const { id } = req.params;
+        const psicologo = await Psicologos.findByPk(id);
+
+        if (psicologo === null) {
+
+            return res.status(400).json("Erro");
+        } else { 
         await Psicologos.destroy({
             where: {
                 id,
             },
         });
+    };
 
         res.status(200).json("Psicologo deletado com sucesso!");
     },
@@ -50,6 +68,10 @@ const psicologoController = {
     async atualizarPsicologos(req, res) {
         const { id } = req.params;
         const { nome, email, senha, apresentacao } = req.body;
+
+        if (!nome || !email || !senha || !apresentacao) {
+            return res.status(400).json("Error");
+        } else {
         const psicologoAtualizado = await Psicologos.update(
             {
                 nome,
@@ -63,10 +85,7 @@ const psicologoController = {
                 },
             }
         );
-
-        if (!nome || !email || !senha || !apresentacao) {
-            return res.status(400).json({ error: "Os parâmetros não foram enviados da forma correta" })
-        }
+        };
 
         res.status(204).json(this.atualizarPsicologos);
     },
