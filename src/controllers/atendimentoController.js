@@ -38,6 +38,7 @@ const atendimentoController = {
             res.status(201).json(novoAtendimento);
         }
     },
+
     async deletarAtendimentos(req, res) {
         const atendimento = await Atendimentos.findByPk(id);
 

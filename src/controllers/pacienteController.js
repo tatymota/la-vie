@@ -58,6 +58,7 @@ const pacienteController = {
         res.status(200).json("Paciente deletado com Sucesso");
     },
 
+
     async atualizarPaciente(req, res) {
         const { id } = req.params;
         const { nome, email, idade } = req.body;
@@ -82,6 +83,7 @@ const pacienteController = {
 
         res.status(200).json("Paciente atualizado com Sucesso");
     },
+
 };
 
 module.exports = pacienteController;
