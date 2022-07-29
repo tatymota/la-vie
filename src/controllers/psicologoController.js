@@ -12,11 +12,11 @@ const psicologoController = {
             res.status(400).json({ error });
         }
     },
-    
+
     async listarPsicologosId(req, res) {
         const { id } = req.params;
         const psicologo = await Psicologos.findByPk(id);
-                
+
         if (psicologo === null) {
             res.status(404).json("Id não encontrado!");
         } else {
@@ -51,13 +51,13 @@ const psicologoController = {
         if (psicologo === null) {
 
             return res.status(400).json("Erro");
-        } else { 
-        await Psicologos.destroy({
-            where: {
-                id,
-            },
-        });
-    };
+        } else {
+            await Psicologos.destroy({
+                where: {
+                    id,
+                },
+            });
+        };
 
         res.status(200).json("Psicologo deletado com sucesso!");
     },
@@ -69,23 +69,21 @@ const psicologoController = {
         if (!nome || !email || !senha || !apresentacao) {
             return res.status(400).json("Error");
         } else {
-        const psicologoAtualizado = await Psicologos.update(
-            {
-                nome,
-                email,
-                senha,
-                apresentacao,
-            },
-            {
-                where: {
-                    id,
-                },
-            }
-        );
-       return res.status(204).json(psicologoAtualizado.body);
+            const psicologoAtualizado = await Psicologos.findByPk(id)
+            await psicologoAtualizado.update(
+                {
+                    nome,
+                    email,
+                    senha,
+                    apresentacao,
+                }
+
+
+            );
+            return res.status(201).json(psicologoAtualizado);
         };
 
-        
+
     },
 };
 
