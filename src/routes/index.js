@@ -25,7 +25,7 @@ routes.put("/psicologos/:id", psicologoController.atualizarPsicologos);
 //Rotas Atendimento
 routes.get("/atendimento", atendimentoController.listarAtendimentos);
 routes.get("/atendimento/:id", atendimentoController.listarAtendimentoId);
-routes.post("/atendimento", auth, atendimentoController.cadastrarAtendimentos);
+routes.post("/atendimento", atendimentoController.cadastrarAtendimentos);
 routes.delete("/atendimento/:id", atendimentoController.deletarAtendimentos);
 routes.put("/atendimento/:id", atendimentoController.atualizarAtendimentos);
 module.exports = routes;
