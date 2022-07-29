@@ -1,7 +1,7 @@
 const { Psicologos } = require("../models");
 const { QueryTypes } = require('sequelize');
 const db = require("../database");
-// const bcrypt = require("bcryptjs");
+const bcrypt = require("bcryptjs");
 const psicologoController = {
     listarPsicologos: async (req, res) => {
         try {
@@ -12,14 +12,11 @@ const psicologoController = {
             res.status(400).json({ error });
         }
     },
-
+    
     async listarPsicologosId(req, res) {
         const { id } = req.params;
-        const psicologo = await db.query("SELECT id, nome, email, apresentacao, updatedAt, createdAt FROM `psicologos` WHERE id = ?",
-            {
-                replacements: [id],
-                type: QueryTypes.SELECT
-            });
+        const psicologo = await Psicologos.findByPk(id);
+                
         if (psicologo === null) {
             res.status(404).json("Id não encontrado!");
         } else {
@@ -28,7 +25,7 @@ const psicologoController = {
     },
 
     async cadastrarPsicologos(req, res) {
-        const { nome, email, senha, apresentacao } = req.body
+        const { nome, email, senha, apresentacao } = req.body;
 
         const newSenha = bcrypt.hashSync(senha, 10);
 
@@ -85,9 +82,10 @@ const psicologoController = {
                 },
             }
         );
+       return res.status(204).json(psicologoAtualizado.body);
         };
 
-        res.status(204).json(this.atualizarPsicologos);
+        
     },
 };
 

@@ -1,4 +1,4 @@
-const { Atendimento } = require("../models")
+const { Atendimento, Psicologos } = require("../models")
 const atendimentoController = {
 
     listarAtendimentos: async (req, res) => {
@@ -21,9 +21,12 @@ const atendimentoController = {
     },
 
     async cadastrarAtendimentos(req, res) {
-        const { pacientes_id, data_atendimento, observacao, psicologos_id } = req.body
+        const { pacientes_id, data_atendimento, observacao, psicologos_id} = req.body
 
-        if (!pacientes_id || !data_atendimento || !observacao || !psicologos_id) {
+        const tokenPsicologo = req.auth.id;
+
+
+        if (!pacientes_id || !data_atendimento || !observacao ) {
 
             return res.status(400).json("Erro na requisição");
 
@@ -32,7 +35,7 @@ const atendimentoController = {
                 pacientes_id,
                 data_atendimento,
                 observacao,
-                psicologos_id
+                psicologos_id: tokenPsicologo
             });
 
             res.status(201).json(novoAtendimento);

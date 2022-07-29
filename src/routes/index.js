@@ -10,9 +10,9 @@ const auth = require("../middlewares/auth");
 
 const routes = express.Router();
 //Rotas Pacientes
-routes.get("/paciente/lista", pacienteController.listarPaciente);
+routes.get("/paciente", pacienteController.listarPaciente);
 routes.get("/paciente/:id", pacienteController.listarPacienteId);
-routes.post("/paciente/criar", auth, pacienteController.cadastrarPaciente);
+routes.post("/paciente", pacienteController.cadastrarPaciente);
 routes.delete("/paciente/:id", pacienteController.deletarPaciente);
 routes.put("/paciente/:id", pacienteController.atualizarPaciente);
 //Rotas Psicologos
