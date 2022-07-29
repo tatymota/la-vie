@@ -1,7 +1,7 @@
 const { Psicologos } = require("../models");
 const { QueryTypes } = require('sequelize');
 const db = require("../database");
-// const bcrypt = require("bcryptjs");
+const bcrypt = require("bcryptjs");
 const psicologoController = {
     listarPsicologos: async (req, res) => {
         try {
