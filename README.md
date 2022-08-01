@@ -17,6 +17,19 @@ Um grupo de Psicologos criaram a clínica LaVie e precisam da criação de uma A
 * Gerar a documentação da API
 * Construção de um dashboard
 
+# ℹ️ Como utilizar
+Você vai precisar do Node.js installado no seu computador. 
+Siga os passos abaixo:
+ 1. Clone o repositório:
+    $ git clone https://github.com/tatymota/la-vie
+
+ 2. Instalando as dependências no terminal:
+   $ npm install express
+   $ npm install sequelize mysql2
+   
+ 3. Criando o banco de dados com o Sequelize:
+   $ npm run dev
+
 ## 🚀 Tecnologias e ferramentas utilizadas
 
 NODE JS || JAVASCRIPT || SEQUELIZE || EXPRESS || MYSQL || GIT
