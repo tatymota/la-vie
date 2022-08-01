@@ -1,4 +1,4 @@
-const Pacientes = require("./Pacientes");
+const Pacientes = require("./pacientes");
 const Psicologos = require("./Psicologos");
 const Atendimento = require("./Atendimento");
 

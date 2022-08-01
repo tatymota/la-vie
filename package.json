@@ -1,7 +1,7 @@
 {
   "name": "la_vie",
   "version": "1.0.0",
-  "description": "",
+  "description": "![Logo La Vie](img/Image%2027-07-22%20at%2020.53.jpeg)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -29,5 +29,16 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.19"
-  }
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tatymota/la-vie.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tatymota/la-vie/issues"
+  },
+  "homepage": "https://github.com/tatymota/la-vie#readme"
 }
